@@ -115,6 +115,12 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setupGreeting();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         timerHandler.removeCallbacks(timerRunnable);
@@ -166,7 +172,35 @@ public class HomeFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            // Count only alcohol drinks
+            List<DrinkEntry> drinks = viewModel.getDrinks().getValue();
+            int alcoholCount = 0;
+            if (drinks != null) {
+                for (DrinkEntry d : drinks) {
+                    if (!d.isWater) alcoholCount++;
+                }
+            }
+
+            int needed = viewModel.getWaterNeededMl().getValue() != null
+                    ? viewModel.getWaterNeededMl().getValue() : 0;
+            int consumed = viewModel.getWaterConsumedMl().getValue() != null
+                    ? viewModel.getWaterConsumedMl().getValue() : 0;
+
+            SessionLog session = new SessionLog(
+                    0,
+                    viewModel.getSessionStartTime(),
+                    System.currentTimeMillis(),
+                    needed,
+                    consumed,
+                    HydrationCalculator.hydrationPercent(needed, consumed),
+                    alcoholCount
+            );
+
+            SessionStorage.saveSession(requireContext(), session);
+            viewModel.notifySessionSaved();
             viewModel.clearSession();
+
             Toast.makeText(requireContext(),
                     "Session saved!", Toast.LENGTH_SHORT).show();
         });
@@ -283,7 +317,6 @@ public class HomeFragment extends Fragment {
         for (int i = 0; i < drinks.size(); i++) {
             DrinkEntry entry = drinks.get(i);
 
-            // Divider between rows
             if (i > 0) {
                 View divider = new View(requireContext());
                 LinearLayout.LayoutParams divParams =
@@ -294,13 +327,11 @@ public class HomeFragment extends Fragment {
                 llDrinkLog.addView(divider);
             }
 
-            // Row
             LinearLayout row = new LinearLayout(requireContext());
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setPadding(dp(12), dp(10), dp(12), dp(10));
 
-            // Left column — name + detail
             LinearLayout leftCol = new LinearLayout(requireContext());
             leftCol.setOrientation(LinearLayout.VERTICAL);
             LinearLayout.LayoutParams leftParams =
@@ -329,7 +360,6 @@ public class HomeFragment extends Fragment {
             leftCol.addView(tvName);
             leftCol.addView(tvDetail);
 
-            // Right — water impact
             TextView tvImpact = new TextView(requireContext());
             tvImpact.setTextSize(11f);
 

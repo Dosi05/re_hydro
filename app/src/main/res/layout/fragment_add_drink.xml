@@ -1,17 +1,296 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0f0f1a"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Drink"
-        android:textColor="#5ab4ff"
-        android:textSize="24sp" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="24dp">
 
-</LinearLayout>
+        <!-- Page title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add a drink"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search or add a custom drink"
+            android:textColor="#444466"
+            android:textSize="11sp"
+            android:layout_marginBottom="18dp" />
+
+        <!-- Search card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SEARCH DRINK"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Search input -->
+            <EditText
+                android:id="@+id/etSearchDrink"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/search_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="Type to search..."
+                android:inputType="textCapWords"
+                android:imeOptions="actionDone"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Dropdown results -->
+            <LinearLayout
+                android:id="@+id/llDropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/dropdown_background"
+                android:visibility="gone" />
+
+            <!-- Custom drink section — shown when + Add new is tapped -->
+            <LinearLayout
+                android:id="@+id/layoutCustomSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/custom_section_background"
+                android:padding="12dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NEW DRINK"
+                    android:textColor="#5ab4ff"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.08"
+                    android:layout_marginBottom="10dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ABV %"
+                    android:textColor="#444466"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.08"
+                    android:layout_marginBottom="6dp" />
+
+                <EditText
+                    android:id="@+id/etCustomAbv"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:background="@drawable/input_background"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#333355"
+                    android:hint="e.g. 11.0"
+                    android:inputType="numberDecimal"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SAVE TO MY DRINKS?"
+                    android:textColor="#444466"
+                    android:textSize="10sp"
+                    android:letterSpacing="0.08"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/btnSaveYes"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:text="Yes — save it"
+                        android:textColor="#5ab4ff"
+                        android:textSize="11sp"
+                        android:gravity="center"
+                        android:background="@drawable/toggle_selected_background"
+                        android:layout_marginEnd="6dp" />
+
+                    <TextView
+                        android:id="@+id/btnSaveNo"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:text="No — one time"
+                        android:textColor="#444466"
+                        android:textSize="11sp"
+                        android:gravity="center"
+                        android:background="@drawable/toggle_unselected_background"
+                        android:layout_marginStart="6dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Volume + ABV card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="VOLUME (ML)"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etVolume"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/input_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="e.g. 330"
+                android:inputType="number"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ABV %"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etAbv"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/input_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="e.g. 5.0"
+                android:inputType="numberDecimal" />
+
+        </LinearLayout>
+
+        <!-- Count card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NUMBER OF DRINKS"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/btnMinus"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:text="−"
+                    android:textColor="#5ab4ff"
+                    android:background="@drawable/water_button_background"
+                    android:textSize="20sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp" />
+
+                <TextView
+                    android:id="@+id/tvCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center" />
+
+                <Button
+                    android:id="@+id/btnPlus"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:text="+"
+                    android:textColor="#5ab4ff"
+                    android:background="@drawable/water_button_background"
+                    android:textSize="20sp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:padding="0dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Add button -->
+        <Button
+            android:id="@+id/btnAddDrink"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Add to session"
+            android:textColor="#0f0f1a"
+            android:background="@drawable/save_profile_button_background"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

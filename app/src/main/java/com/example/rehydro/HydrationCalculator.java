@@ -30,8 +30,9 @@ public class HydrationCalculator {
 
         double alcoholGrams = pureAlcoholMl * ALCOHOL_DENSITY;
         float r = "F".equals(sex) ? R_FEMALE : R_MALE;
-        // BAC = (alcohol grams / (r * weight kg)) * 100
-        return (float) ((alcoholGrams / (r * weightKg)) * 100);
+
+        // Widmark: BAC (g/100ml) = alcoholGrams / (r × weightKg × 10)
+        return (float) (alcoholGrams / (r * weightKg * 10));
     }
 
     /**
@@ -41,6 +42,7 @@ public class HydrationCalculator {
     public static float getDrunkenessLevel(List<DrinkEntry> drinks,
                                            float weightKg, String sex) {
         float bac = calculateBAC(drinks, weightKg, sex);
+        // 0.25 g/100ml = very drunk threshold
         return Math.min(bac / 0.25f, 1.0f);
     }
 

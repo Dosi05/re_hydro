@@ -1,17 +1,345 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0f0f1a"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:fillViewport="true"
+    android:scrollbars="none">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/profileInnerLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textColor="#5ab4ff"
-        android:textSize="24sp" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="24dp">
 
-</LinearLayout>
+        <!-- Page title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Your profile"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="2dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Used for accurate BAC calculations"
+            android:textColor="#444466"
+            android:textSize="11sp"
+            android:layout_marginBottom="18dp" />
+
+        <!-- Stat chips — hidden until profile is saved -->
+        <LinearLayout
+            android:id="@+id/layoutStatChips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="14dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/chipWeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvChipWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5ab4ff"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight"
+                    android:textColor="#666688"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chipHeight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvChipHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5ab4ff"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Height"
+                    android:textColor="#666688"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chipAge"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvChipAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5ab4ff"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age"
+                    android:textColor="#666688"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/chipGender"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:layout_marginStart="4dp">
+
+                <TextView
+                    android:id="@+id/tvChipGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#5ab4ff"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gender"
+                    android:textColor="#666688"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Profile fields card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="14dp"
+            android:layout_marginBottom="10dp">
+
+            <!-- Name -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NAME"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/input_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="Your name"
+                android:inputType="textCapWords"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Weight -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WEIGHT (KG)"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etWeight"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/input_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="e.g. 70"
+                android:inputType="numberDecimal"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Height -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HEIGHT (CM)"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etHeight"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/input_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="e.g. 175"
+                android:inputType="number"
+                android:layout_marginBottom="14dp" />
+
+            <!-- Age -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AGE"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="6dp" />
+
+            <EditText
+                android:id="@+id/etAge"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/input_background"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="#ffffff"
+                android:textColorHint="#333355"
+                android:hint="e.g. 25"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <!-- Gender card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GENDER"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnMale"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Male"
+                    android:textColor="#444466"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:background="@drawable/radio_unselected_background"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/btnFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Female"
+                    android:textColor="#444466"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:background="@drawable/radio_unselected_background"
+                    android:layout_marginStart="6dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Save button -->
+        <Button
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save profile"
+            android:textColor="#0f0f1a"
+            android:background="@drawable/save_profile_button_background"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Past sessions label -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAST SESSIONS"
+            android:textColor="#333355"
+            android:textSize="10sp"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Sessions list -->
+        <LinearLayout
+            android:id="@+id/llSessionsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
