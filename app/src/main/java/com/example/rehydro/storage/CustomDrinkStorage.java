@@ -1,7 +1,9 @@
-package com.example.rehydro;
+package com.example.rehydro.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.example.rehydro.model.CustomDrink;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -15,7 +17,6 @@ public class CustomDrinkStorage {
     private static final String KEY_DRINKS = "drinks";
     private static final Gson gson = new Gson();
 
-    // ── Preset drinks bundled with the app ────────────────────────────────────
     private static final List<CustomDrink> PRESETS = Arrays.asList(
             new CustomDrink("Beer",       5.0,  330),
             new CustomDrink("Wine",      13.0,  150),
@@ -33,14 +34,12 @@ public class CustomDrinkStorage {
             new CustomDrink("Cocktail",  10.0,  200)
     );
 
-    // ── Get all drinks — presets + user saved ─────────────────────────────────
     public static List<CustomDrink> getAllDrinks(Context context) {
         List<CustomDrink> all = new ArrayList<>(PRESETS);
         all.addAll(getUserDrinks(context));
         return all;
     }
 
-    // ── Get only user saved drinks ────────────────────────────────────────────
     public static List<CustomDrink> getUserDrinks(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(
                 PREF_NAME, Context.MODE_PRIVATE);
@@ -51,11 +50,9 @@ public class CustomDrinkStorage {
         return gson.fromJson(json, type);
     }
 
-    // ── Save a new custom drink ───────────────────────────────────────────────
     public static void saveDrink(Context context, CustomDrink drink) {
         List<CustomDrink> existing = getUserDrinks(context);
 
-        // Avoid duplicates — if same name exists update it
         for (int i = 0; i < existing.size(); i++) {
             if (existing.get(i).name.equalsIgnoreCase(drink.name)) {
                 existing.set(i, drink);
@@ -68,7 +65,6 @@ public class CustomDrinkStorage {
         writeToPrefs(context, existing);
     }
 
-    // ── Search drinks by name ─────────────────────────────────────────────────
     public static List<CustomDrink> search(Context context, String query) {
         if (query == null || query.trim().isEmpty()) {
             return getAllDrinks(context);
@@ -85,7 +81,20 @@ public class CustomDrinkStorage {
         return results;
     }
 
-    // ── Check if name already exists ──────────────────────────────────────────
+    public static List<CustomDrink> searchPresetsOnly(String query) {
+        if (query == null || query.trim().isEmpty()) {
+            return new ArrayList<>(PRESETS);
+        }
+        String lower = query.toLowerCase().trim();
+        List<CustomDrink> results = new ArrayList<>();
+        for (CustomDrink d : PRESETS) {
+            if (d.name.toLowerCase().contains(lower)) {
+                results.add(d);
+            }
+        }
+        return results;
+    }
+
     public static boolean exists(Context context, String name) {
         for (CustomDrink d : getAllDrinks(context)) {
             if (d.name.equalsIgnoreCase(name.trim())) return true;
@@ -93,7 +102,6 @@ public class CustomDrinkStorage {
         return false;
     }
 
-    // ── Private ───────────────────────────────────────────────────────────────
     private static void writeToPrefs(Context context, List<CustomDrink> drinks) {
         SharedPreferences prefs = context.getSharedPreferences(
                 PREF_NAME, Context.MODE_PRIVATE);

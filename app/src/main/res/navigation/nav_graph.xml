@@ -7,17 +7,28 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.rehydro.HomeFragment"
+        android:name="com.example.rehydro.ui.HomeFragment"
         android:label="Home" />
 
     <fragment
         android:id="@+id/addDrinkFragment"
-        android:name="com.example.rehydro.AddDrinkFragment"
+        android:name="com.example.rehydro.ui.AddDrinkFragment"
         android:label="Add Drink" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.rehydro.ProfileFragment"
+        android:name="com.example.rehydro.ui.ProfileFragment"
         android:label="Profile" />
+
+    <fragment
+        android:id="@+id/sessionDetailFragment"
+        android:name="com.example.rehydro.ui.SessionDetailFragment"
+        android:label="Session Detail">
+
+        <argument
+            android:name="sessionId"
+            app:argType="integer" />
+
+    </fragment>
 
 </navigation>

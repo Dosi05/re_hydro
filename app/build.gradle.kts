@@ -9,10 +9,10 @@ android {
 
     defaultConfig {
         applicationId = "com.example.rehydro"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 10
+        versionName = "1.10"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -41,6 +41,13 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
     implementation(libs.fragment)
     implementation("com.google.code.gson:gson:2.10.1")
+
+    // Google Maps + Location
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation("com.google.android.gms:play-services-location:21.2.0")
+
+    // WorkManager за нотификации (по-късно)
+    implementation("androidx.work:work-runtime:2.9.0")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")

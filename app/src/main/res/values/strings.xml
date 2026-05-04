@@ -1,5 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Re:Hydro</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="google_maps_key">AIzaSyAG0L0G6f-dwdIwH4jqU9PByhvdcLkKhpk</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_add">Add</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Home -->
+    <string name="good_morning">Good morning</string>
+    <string name="good_afternoon">Good afternoon</string>
+    <string name="good_evening">Good evening</string>
+    <string name="good_night">Good night</string>
+    <string name="no_active_session">No active session</string>
+    <string name="session_started_hm">Session started %1$dh %2$dm ago</string>
+    <string name="session_started_m">Session started %1$dm ago</string>
+    <string name="water_needed">Water needed</string>
+    <string name="water_consumed">Water consumed</string>
+    <string name="drunkenness">Drunkenness</string>
+    <string name="hydration">Hydration</string>
+    <string name="current_session">CURRENT SESSION</string>
+    <string name="save_session">Save session</string>
+    <string name="no_session_to_save">No active session to save</string>
+    <string name="session_saved">Session saved!</string>
+    <string name="no_drinks_logged">No drinks logged yet</string>
+    <string name="water_added_250">250 ml water added</string>
+    <string name="water_added_500">500 ml water added</string>
+    <string name="removed">%1$s removed</string>
+    <string name="updated">Updated!</string>
+
+    <!-- Character states -->
+    <string name="state_sober">Perfectly sober</string>
+    <string name="state_tipsy">Getting tipsy</string>
+    <string name="state_drunk">Noticeably drunk</string>
+    <string name="state_wrecked">Very drunk</string>
+    <string name="msg_sober">You\'re doing great! Stay hydrated.</string>
+    <string name="msg_tipsy">Start sipping water between drinks.</string>
+    <string name="msg_drunk">Slow down. Drink water and eat something.</string>
+    <string name="msg_wrecked">Please stop drinking. Find somewhere safe.</string>
+    <string name="level_1">Level 1 / 4</string>
+    <string name="level_2">Level 2 / 4</string>
+    <string name="level_3">Level 3 / 4</string>
+    <string name="level_4">Level 4 / 4</string>
+
+    <!-- Edit popup -->
+    <string name="volume_ml">VOLUME (ML)</string>
+    <string name="abv_percent">ABV %</string>
+    <string name="count">COUNT</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_changes">Save changes</string>
+    <string name="edit_drink">Edit %1$s</string>
+    <string name="please_enter_volume">Please enter volume</string>
+    <string name="please_enter_abv">Please enter ABV</string>
+
+    <!-- Add drink -->
+    <string name="add_a_drink">Add a drink</string>
+    <string name="search_or_add_custom">Search or add a custom drink</string>
+    <string name="search_drink">SEARCH DRINK</string>
+    <string name="type_to_search">Type to search…</string>
+    <string name="new_drink">NEW DRINK</string>
+    <string name="save_to_my_drinks">SAVE TO MY DRINKS?</string>
+    <string name="yes_save_it">Yes — save it</string>
+    <string name="no_one_time">No — one time</string>
+    <string name="number_of_drinks">NUMBER OF DRINKS</string>
+    <string name="add_to_session">Add to session</string>
+    <string name="select_drink_first">Please select a drink first</string>
+    <string name="enter_volume">Please enter volume</string>
+    <string name="added_to_session">%1$s added to session</string>
+
+    <!-- Profile -->
+    <string name="your_profile">Your profile</string>
+    <string name="profile_subtitle">Used for accurate BAC calculations</string>
+    <string name="label_name">NAME</string>
+    <string name="label_weight">WEIGHT (KG)</string>
+    <string name="label_height">HEIGHT (CM)</string>
+    <string name="label_age">AGE</string>
+    <string name="label_gender">GENDER</string>
+    <string name="hint_name">Your name</string>
+    <string name="hint_weight">e.g. 70</string>
+    <string name="hint_height">e.g. 175</string>
+    <string name="hint_age">e.g. 25</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="save_profile">Save profile</string>
+    <string name="profile_saved">Profile saved!</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="past_sessions">PAST SESSIONS</string>
+    <string name="no_sessions_yet">No sessions yet</string>
+    <string name="chip_weight">Weight</string>
+    <string name="chip_height">Height</string>
+    <string name="chip_age">Age</string>
+    <string name="chip_gender">Gender</string>
+    <string name="label_language">LANGUAGE</string>
+
+    <!-- Session detail -->
+    <string name="session_detail">Session detail</string>
+    <string name="label_date">DATE</string>
+    <string name="label_duration">DURATION</string>
+    <string name="label_drinks">DRINKS</string>
+    <string name="drinks_log">DRINKS LOG</string>
+    <string name="drink">DRINK</string>
+    <string name="ml">ML</string>
+    <string name="abv">ABV%</string>
+    <string name="summary">SUMMARY</string>
+    <string name="water_needed_label">Water needed</string>
+    <string name="water_consumed_label">Water consumed</string>
+    <string name="bac_peak">BAC peak</string>
+    <string name="hydration_label">Hydration</string>
+    <string name="route">ROUTE</string>
+    <string name="water">Water</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_subtitle">Before we start, tell us a bit about yourself. This helps us calculate your BAC accurately.</string>
+    <string name="lets_go">Let\'s go →</string>
+
+    <!-- Notifications -->
+    <string name="notif_water_title">Time to drink water!</string>
+    <string name="notif_water_text">Your hydration is low. Drink a glass of water now.</string>
+    <string name="notif_location_title">New location detected!</string>
+    <string name="notif_location_text">You\'ve moved to a new spot.</string>
+
+    <!-- Session row -->
+    <string name="drinks_count">%1$d drinks</string>
+    <string name="see_more">See more</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.rehydro;
+package com.example.rehydro.data.prefs;
 
 import android.content.Context;
 import android.content.SharedPreferences;

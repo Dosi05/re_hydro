@@ -15,11 +15,10 @@
         android:paddingTop="22dp"
         android:paddingBottom="24dp">
 
-        <!-- Page title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add a drink"
+            android:text="@string/add_a_drink"
             android:textColor="#ffffff"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -28,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Search or add a custom drink"
+            android:text="@string/search_or_add_custom"
             android:textColor="#444466"
             android:textSize="11sp"
             android:layout_marginBottom="18dp" />
@@ -45,13 +44,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SEARCH DRINK"
+                android:text="@string/search_drink"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Search input -->
             <EditText
                 android:id="@+id/etSearchDrink"
                 android:layout_width="match_parent"
@@ -61,12 +59,11 @@
                 android:paddingEnd="12dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#333355"
-                android:hint="Type to search..."
+                android:hint="@string/type_to_search"
                 android:inputType="textCapWords"
                 android:imeOptions="actionDone"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Dropdown results -->
             <LinearLayout
                 android:id="@+id/llDropdown"
                 android:layout_width="match_parent"
@@ -75,7 +72,6 @@
                 android:background="@drawable/dropdown_background"
                 android:visibility="gone" />
 
-            <!-- Custom drink section — shown when + Add new is tapped -->
             <LinearLayout
                 android:id="@+id/layoutCustomSection"
                 android:layout_width="match_parent"
@@ -89,7 +85,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="NEW DRINK"
+                    android:text="@string/new_drink"
                     android:textColor="#5ab4ff"
                     android:textSize="10sp"
                     android:letterSpacing="0.08"
@@ -98,7 +94,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ABV %"
+                    android:text="@string/abv_percent"
                     android:textColor="#444466"
                     android:textSize="10sp"
                     android:letterSpacing="0.08"
@@ -120,7 +116,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SAVE TO MY DRINKS?"
+                    android:text="@string/save_to_my_drinks"
                     android:textColor="#444466"
                     android:textSize="10sp"
                     android:letterSpacing="0.08"
@@ -136,7 +132,7 @@
                         android:layout_width="0dp"
                         android:layout_height="36dp"
                         android:layout_weight="1"
-                        android:text="Yes — save it"
+                        android:text="@string/yes_save_it"
                         android:textColor="#5ab4ff"
                         android:textSize="11sp"
                         android:gravity="center"
@@ -148,7 +144,7 @@
                         android:layout_width="0dp"
                         android:layout_height="36dp"
                         android:layout_weight="1"
-                        android:text="No — one time"
+                        android:text="@string/no_one_time"
                         android:textColor="#444466"
                         android:textSize="11sp"
                         android:gravity="center"
@@ -173,7 +169,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="VOLUME (ML)"
+                android:text="@string/volume_ml"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -193,9 +189,10 @@
                 android:layout_marginBottom="14dp" />
 
             <TextView
+                android:id="@+id/tvAbvLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ABV %"
+                android:text="@string/abv_percent"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -227,7 +224,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NUMBER OF DRINKS"
+                android:text="@string/number_of_drinks"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -283,7 +280,7 @@
             android:id="@+id/btnAddDrink"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Add to session"
+            android:text="@string/add_to_session"
             android:textColor="#0f0f1a"
             android:background="@drawable/save_profile_button_background"
             android:textSize="14sp"

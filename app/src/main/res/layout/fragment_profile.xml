@@ -20,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your profile"
+            android:text="@string/your_profile"
             android:textColor="#ffffff"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -29,12 +29,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Used for accurate BAC calculations"
+            android:text="@string/profile_subtitle"
             android:textColor="#444466"
             android:textSize="11sp"
             android:layout_marginBottom="18dp" />
 
-        <!-- Stat chips — hidden until profile is saved -->
+        <!-- Stat chips -->
         <LinearLayout
             android:id="@+id/layoutStatChips"
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weight"
+                    android:text="@string/chip_weight"
                     android:textColor="#666688"
                     android:textSize="10sp" />
 
@@ -92,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Height"
+                    android:text="@string/chip_height"
                     android:textColor="#666688"
                     android:textSize="10sp" />
 
@@ -120,7 +120,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/chip_age"
                     android:textColor="#666688"
                     android:textSize="10sp" />
 
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gender"
+                    android:text="@string/chip_gender"
                     android:textColor="#666688"
                     android:textSize="10sp" />
 
@@ -164,11 +164,10 @@
             android:padding="14dp"
             android:layout_marginBottom="10dp">
 
-            <!-- Name -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NAME"
+                android:text="@string/label_name"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -183,15 +182,14 @@
                 android:paddingEnd="12dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#333355"
-                android:hint="Your name"
+                android:hint="@string/hint_name"
                 android:inputType="textCapWords"
                 android:layout_marginBottom="14dp" />
 
-            <!-- Weight -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WEIGHT (KG)"
+                android:text="@string/label_weight"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -206,15 +204,14 @@
                 android:paddingEnd="12dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#333355"
-                android:hint="e.g. 70"
+                android:hint="@string/hint_weight"
                 android:inputType="numberDecimal"
                 android:layout_marginBottom="14dp" />
 
-            <!-- Height -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HEIGHT (CM)"
+                android:text="@string/label_height"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -229,15 +226,14 @@
                 android:paddingEnd="12dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#333355"
-                android:hint="e.g. 175"
+                android:hint="@string/hint_height"
                 android:inputType="number"
                 android:layout_marginBottom="14dp" />
 
-            <!-- Age -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AGE"
+                android:text="@string/label_age"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -252,7 +248,7 @@
                 android:paddingEnd="12dp"
                 android:textColor="#ffffff"
                 android:textColorHint="#333355"
-                android:hint="e.g. 25"
+                android:hint="@string/hint_age"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -264,12 +260,12 @@
             android:orientation="vertical"
             android:background="@drawable/card_background"
             android:padding="14dp"
-            android:layout_marginBottom="14dp">
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="GENDER"
+                android:text="@string/label_gender"
                 android:textColor="#444466"
                 android:textSize="10sp"
                 android:letterSpacing="0.08"
@@ -285,7 +281,7 @@
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:text="Male"
+                    android:text="@string/male"
                     android:textColor="#444466"
                     android:textSize="13sp"
                     android:gravity="center"
@@ -297,7 +293,58 @@
                     android:layout_width="0dp"
                     android:layout_height="44dp"
                     android:layout_weight="1"
-                    android:text="Female"
+                    android:text="@string/female"
+                    android:textColor="#444466"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:background="@drawable/radio_unselected_background"
+                    android:layout_marginStart="6dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Language card -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_background"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_language"
+                android:textColor="#444466"
+                android:textSize="10sp"
+                android:letterSpacing="0.08"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnLangEn"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="English"
+                    android:textColor="#5ab4ff"
+                    android:textSize="13sp"
+                    android:gravity="center"
+                    android:background="@drawable/radio_selected_background"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/btnLangBg"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:text="Български"
                     android:textColor="#444466"
                     android:textSize="13sp"
                     android:gravity="center"
@@ -313,7 +360,7 @@
             android:id="@+id/btnSaveProfile"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Save profile"
+            android:text="@string/save_profile"
             android:textColor="#0f0f1a"
             android:background="@drawable/save_profile_button_background"
             android:textSize="14sp"
@@ -326,7 +373,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PAST SESSIONS"
+            android:text="@string/past_sessions"
             android:textColor="#333355"
             android:textSize="10sp"
             android:letterSpacing="0.08"

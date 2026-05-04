@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Re:Hydro</string>
+    <string name="google_maps_key">AIzaSyAG0L0G6f-dwdIwH4jqU9PByhvdcLkKhpk</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Начало</string>
+    <string name="nav_add">Добави</string>
+    <string name="nav_profile">Профил</string>
+
+    <!-- Home -->
+    <string name="good_morning">Добро утро</string>
+    <string name="good_afternoon">Добър ден</string>
+    <string name="good_evening">Добър вечер</string>
+    <string name="good_night">Добър вечер</string>
+    <string name="no_active_session">Няма активна сесия</string>
+    <string name="session_started_hm">Сесията започна преди %1$dч %2$dмин</string>
+    <string name="session_started_m">Сесията започна преди %1$dмин</string>
+    <string name="water_needed">Нужна вода</string>
+    <string name="water_consumed">Изпита вода</string>
+    <string name="drunkenness">Опиянение</string>
+    <string name="hydration">Хидратация</string>
+    <string name="current_session">ТЕКУЩА СЕСИЯ</string>
+    <string name="save_session">Запази сесия</string>
+    <string name="no_session_to_save">Няма активна сесия за запазване</string>
+    <string name="session_saved">Сесията е запазена!</string>
+    <string name="no_drinks_logged">Няма добавени напитки</string>
+    <string name="water_added_250">Добавени 250 мл вода</string>
+    <string name="water_added_500">Добавени 500 мл вода</string>
+    <string name="removed">%1$s премахнато</string>
+    <string name="updated">Обновено!</string>
+
+    <!-- Character states -->
+    <string name="state_sober">Напълно трезвен</string>
+    <string name="state_tipsy">Леко засегнат</string>
+    <string name="state_drunk">Забележимо пиян</string>
+    <string name="state_wrecked">Много пиян</string>
+    <string name="msg_sober">Справяш се страхотно! Пий вода.</string>
+    <string name="msg_tipsy">Започни да пиеш вода между напитките.</string>
+    <string name="msg_drunk">Забави. Пий вода и яж нещо.</string>
+    <string name="msg_wrecked">Моля, спри да пиеш. Намери безопасно място.</string>
+    <string name="level_1">Ниво 1 / 4</string>
+    <string name="level_2">Ниво 2 / 4</string>
+    <string name="level_3">Ниво 3 / 4</string>
+    <string name="level_4">Ниво 4 / 4</string>
+
+    <!-- Edit popup -->
+    <string name="volume_ml">ОБЕМ (МЛ)</string>
+    <string name="abv_percent">ABV %</string>
+    <string name="count">БРОЙ</string>
+    <string name="cancel">Откажи</string>
+    <string name="save_changes">Запази промените</string>
+    <string name="edit_drink">Редактирай %1$s</string>
+    <string name="please_enter_volume">Моля, въведи обем</string>
+    <string name="please_enter_abv">Моля, въведи ABV</string>
+
+    <!-- Add drink -->
+    <string name="add_a_drink">Добави напитка</string>
+    <string name="search_or_add_custom">Търси или добави напитка</string>
+    <string name="search_drink">ТЪРСИ НАПИТКА</string>
+    <string name="type_to_search">Въведи за търсене…</string>
+    <string name="new_drink">НОВА НАПИТКА</string>
+    <string name="save_to_my_drinks">ЗАПАЗИ В МОИ НАПИТКИ?</string>
+    <string name="yes_save_it">Да — запази</string>
+    <string name="no_one_time">Не — само сега</string>
+    <string name="number_of_drinks">БРОЙ НАПИТКИ</string>
+    <string name="add_to_session">Добави към сесията</string>
+    <string name="select_drink_first">Моля, избери напитка</string>
+    <string name="enter_volume">Моля, въведи обем</string>
+    <string name="added_to_session">%1$s добавено към сесията</string>
+
+    <!-- Profile -->
+    <string name="your_profile">Твоят профил</string>
+    <string name="profile_subtitle">Използва се за точно изчисляване на BAC</string>
+    <string name="label_name">ИМЕ</string>
+    <string name="label_weight">ТЕГЛО (КГ)</string>
+    <string name="label_height">РЪСТ (СМ)</string>
+    <string name="label_age">ВЪЗРАСТ</string>
+    <string name="label_gender">ПОЛ</string>
+    <string name="hint_name">Твоето име</string>
+    <string name="hint_weight">напр. 70</string>
+    <string name="hint_height">напр. 175</string>
+    <string name="hint_age">напр. 25</string>
+    <string name="male">Мъж</string>
+    <string name="female">Жена</string>
+    <string name="save_profile">Запази профил</string>
+    <string name="profile_saved">Профилът е запазен!</string>
+    <string name="fill_all_fields">Моля, попълни всички полета</string>
+    <string name="past_sessions">МИНАЛИ СЕСИИ</string>
+    <string name="no_sessions_yet">Няма сесии все още</string>
+    <string name="chip_weight">Тегло</string>
+    <string name="chip_height">Ръст</string>
+    <string name="chip_age">Възраст</string>
+    <string name="chip_gender">Пол</string>
+    <string name="label_language">ЕЗИК</string>
+
+    <!-- Session detail -->
+    <string name="session_detail">Детайли за сесията</string>
+    <string name="label_date">ДАТА</string>
+    <string name="label_duration">ПРОДЪЛЖИТЕЛНОСТ</string>
+    <string name="label_drinks">НАПИТКИ</string>
+    <string name="drinks_log">ДНЕВНИК</string>
+    <string name="drink">НАПИТКА</string>
+    <string name="ml">МЛ</string>
+    <string name="abv">ABV%</string>
+    <string name="summary">ОБОБЩЕНИЕ</string>
+    <string name="water_needed_label">Нужна вода</string>
+    <string name="water_consumed_label">Изпита вода</string>
+    <string name="bac_peak">BAC пик</string>
+    <string name="hydration_label">Хидратация</string>
+    <string name="route">МАРШРУТ</string>
+    <string name="water">Вода</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_subtitle">Преди да започнем, разкажи ни малко за себе си. Това ни помага да изчислим точно твоя BAC.</string>
+    <string name="lets_go">Да тръгваме →</string>
+
+    <!-- Notifications -->
+    <string name="notif_water_title">Време е да пиеш вода!</string>
+    <string name="notif_water_text">Хидратацията ти е ниска. Изпий чаша вода сега.</string>
+    <string name="notif_location_title">Засечена е нова локация!</string>
+    <string name="notif_location_text">Преместил си се наново място.</string>
+
+    <!-- Session row -->
+    <string name="drinks_count">%1$d напитки</string>
+    <string name="see_more">Виж повече</string>
+</resources>

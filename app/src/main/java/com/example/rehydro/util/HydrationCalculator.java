@@ -1,4 +1,6 @@
-package com.example.rehydro;
+package com.example.rehydro.util;
+
+import com.example.rehydro.model.DrinkEntry;
 
 import java.util.List;
 

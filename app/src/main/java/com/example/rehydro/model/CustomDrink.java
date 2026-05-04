@@ -1,4 +1,4 @@
-package com.example.rehydro;
+package com.example.rehydro.model;
 
 public class CustomDrink {
     public String name;

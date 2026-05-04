@@ -33,7 +33,7 @@
                     android:id="@+id/tvGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Good evening"
+                    android:text="@string/good_evening"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -43,7 +43,7 @@
                     android:id="@+id/tvSessionTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="No active session"
+                    android:text="@string/no_active_session"
                     android:textColor="#444466"
                     android:textSize="11sp" />
 
@@ -99,7 +99,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Water needed"
+                    android:text="@string/water_needed"
                     android:textColor="#444466"
                     android:textSize="10sp"
                     android:layout_marginBottom="3dp" />
@@ -127,7 +127,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Water consumed"
+                    android:text="@string/water_consumed"
                     android:textColor="#444466"
                     android:textSize="10sp"
                     android:layout_marginBottom="3dp" />
@@ -177,7 +177,7 @@
                         android:id="@+id/tvCharacterState"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Perfectly sober"
+                        android:text="@string/state_sober"
                         android:textColor="#ffffff"
                         android:textSize="14sp"
                         android:textStyle="bold"
@@ -187,7 +187,7 @@
                         android:id="@+id/tvCharacterMessage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="You're doing great! Stay hydrated."
+                        android:text="@string/msg_sober"
                         android:textColor="#555577"
                         android:textSize="11sp"
                         android:lineSpacingMultiplier="1.4" />
@@ -198,7 +198,7 @@
                     android:id="@+id/tvStateLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 1 / 4"
+                    android:text="@string/level_1"
                     android:textColor="#34d399"
                     android:textSize="9sp"
                     android:background="@drawable/card_background"
@@ -230,7 +230,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Drunkenness"
+                    android:text="@string/drunkenness"
                     android:textColor="#666688"
                     android:textSize="11sp" />
 
@@ -275,7 +275,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Hydration"
+                    android:text="@string/hydration"
                     android:textColor="#666688"
                     android:textSize="11sp" />
 
@@ -342,7 +342,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CURRENT SESSION"
+            android:text="@string/current_session"
             android:textColor="#333355"
             android:textSize="10sp"
             android:letterSpacing="0.08"
@@ -362,7 +362,7 @@
             android:id="@+id/btnSaveSession"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="Save session"
+            android:text="@string/save_session"
             android:textColor="#34d399"
             android:background="@drawable/save_button_background"
             android:textSize="13sp"

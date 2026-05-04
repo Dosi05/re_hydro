@@ -1,4 +1,4 @@
-package com.example.rehydro;
+package com.example.rehydro.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,15 +16,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.example.rehydro.model.CustomDrink;
+import com.example.rehydro.data.entity.CustomDrinkEntity;
+import com.example.rehydro.storage.CustomDrinkStorage;
+import com.example.rehydro.data.db.DatabaseHelper;
+import com.example.rehydro.model.DrinkEntry;
+import com.example.rehydro.R;
+import com.example.rehydro.data.prefs.UserPrefs;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddDrinkFragment extends Fragment {
 
-    // ── ViewModel + Prefs ─────────────────────────────────────────────────────
+    private static final String TAG = "REHYDRO";
+
     private DrinkViewModel viewModel;
     private UserPrefs userPrefs;
 
-    // ── Views ─────────────────────────────────────────────────────────────────
     private EditText etSearchDrink;
     private LinearLayout llDropdown;
     private LinearLayout layoutCustomSection;
@@ -32,19 +42,18 @@ public class AddDrinkFragment extends Fragment {
     private TextView btnSaveYes;
     private TextView btnSaveNo;
     private EditText etVolume;
+    private TextView tvAbvLabel;
     private EditText etAbv;
     private Button btnMinus;
     private Button btnPlus;
     private TextView tvCount;
     private Button btnAddDrink;
 
-    // ── State ─────────────────────────────────────────────────────────────────
-    private int drinkCount        = 1;
-    private boolean saveCustom    = true;
-    private boolean isCustomDrink = false;
-    private String selectedName   = "";
-
-    // ── Lifecycle ─────────────────────────────────────────────────────────────
+    private int drinkCount          = 1;
+    private boolean saveCustom      = true;
+    private boolean isCustomDrink   = false;
+    private String selectedName     = "";
+    private boolean suppressWatcher = false;
 
     @Nullable
     @Override
@@ -70,39 +79,40 @@ public class AddDrinkFragment extends Fragment {
         setupAddButton();
     }
 
-    // ── Setup ─────────────────────────────────────────────────────────────────
-
     private void bindViews(View view) {
-        etSearchDrink      = view.findViewById(R.id.etSearchDrink);
-        llDropdown         = view.findViewById(R.id.llDropdown);
+        etSearchDrink       = view.findViewById(R.id.etSearchDrink);
+        llDropdown          = view.findViewById(R.id.llDropdown);
         layoutCustomSection = view.findViewById(R.id.layoutCustomSection);
-        etCustomAbv        = view.findViewById(R.id.etCustomAbv);
-        btnSaveYes         = view.findViewById(R.id.btnSaveYes);
-        btnSaveNo          = view.findViewById(R.id.btnSaveNo);
-        etVolume           = view.findViewById(R.id.etVolume);
-        etAbv              = view.findViewById(R.id.etAbv);
-        btnMinus           = view.findViewById(R.id.btnMinus);
-        btnPlus            = view.findViewById(R.id.btnPlus);
-        tvCount            = view.findViewById(R.id.tvCount);
-        btnAddDrink        = view.findViewById(R.id.btnAddDrink);
+        etCustomAbv         = view.findViewById(R.id.etCustomAbv);
+        btnSaveYes          = view.findViewById(R.id.btnSaveYes);
+        btnSaveNo           = view.findViewById(R.id.btnSaveNo);
+        etVolume            = view.findViewById(R.id.etVolume);
+        tvAbvLabel          = view.findViewById(R.id.tvAbvLabel);
+        etAbv               = view.findViewById(R.id.etAbv);
+        btnMinus            = view.findViewById(R.id.btnMinus);
+        btnPlus             = view.findViewById(R.id.btnPlus);
+        tvCount             = view.findViewById(R.id.tvCount);
+        btnAddDrink         = view.findViewById(R.id.btnAddDrink);
     }
-
-    // ── Search ────────────────────────────────────────────────────────────────
 
     private void setupSearch() {
         etSearchDrink.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {}
+            public void beforeTextChanged(CharSequence s,
+                                          int start, int count, int after) {}
 
             @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
+            public void onTextChanged(CharSequence s,
+                                      int start, int before, int count) {
+                if (suppressWatcher) return;
+
                 String query = s.toString().trim();
                 if (query.isEmpty()) {
                     llDropdown.setVisibility(View.GONE);
                     layoutCustomSection.setVisibility(View.GONE);
                     clearFields();
+                    selectedName  = "";
+                    isCustomDrink = false;
                     return;
                 }
                 showDropdown(query);
@@ -119,50 +129,66 @@ public class AddDrinkFragment extends Fragment {
         layoutCustomSection.setVisibility(View.GONE);
         isCustomDrink = false;
 
-        List<CustomDrink> results =
-                CustomDrinkStorage.search(requireContext(), query);
+        List<CustomDrink> presetResults =
+                CustomDrinkStorage.searchPresetsOnly(query);
 
-        // Show matched drinks — max 5 results
-        int limit = Math.min(results.size(), 5);
-        for (int i = 0; i < limit; i++) {
-            CustomDrink drink = results.get(i);
-            addDropdownRow(drink, false);
-        }
+        DatabaseHelper.searchCustomDrinks(
+                requireContext(), query, dbResults -> {
+                    if (!isAdded()) return;
+                    llDropdown.removeAllViews();
 
-        // Always show "+ Add X as new drink" at the bottom
-        addAddNewRow(query);
+                    List<String> added = new ArrayList<>();
+                    int count = 0;
+
+                    for (CustomDrink d : presetResults) {
+                        if (count >= 5) break;
+                        addDropdownRow(d.name, d.abvPercent, d.defaultVolumeMl);
+                        added.add(d.name.toLowerCase());
+                        count++;
+                    }
+
+                    for (CustomDrinkEntity d : dbResults) {
+                        if (count >= 5) break;
+                        if (!added.contains(d.name.toLowerCase())) {
+                            addDropdownRow(d.name, d.abvPercent, d.defaultVolumeMl);
+                            count++;
+                        }
+                    }
+
+                    addAddNewRow(query);
+                });
     }
 
-    private void addDropdownRow(CustomDrink drink, boolean isAddNew) {
+    private void addDropdownRow(String name, double abv, int volumeMl) {
+        if (llDropdown.getChildCount() > 0) {
+            View divider = new View(requireContext());
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            divider.setLayoutParams(params);
+            divider.setBackgroundColor(Color.parseColor("#22223a"));
+            llDropdown.addView(divider);
+        }
+
         View row = LayoutInflater.from(requireContext())
                 .inflate(R.layout.item_dropdown_row, llDropdown, false);
 
         TextView tvName   = row.findViewById(R.id.tvDropdownName);
         TextView tvDetail = row.findViewById(R.id.tvDropdownDetail);
 
-        tvName.setText(drink.name);
-        tvDetail.setText(drink.defaultVolumeMl + " ml · " + drink.abvPercent + "%");
+        tvName.setText(name);
+        tvDetail.setText(volumeMl + " ml · " + abv + "%");
 
-        // Divider between rows
-        if (llDropdown.getChildCount() > 0) {
-            View divider = new View(requireContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1);
-            divider.setLayoutParams(params);
-            divider.setBackgroundColor(Color.parseColor("#22223a"));
-            llDropdown.addView(divider);
-        }
-
-        row.setOnClickListener(v -> selectDrink(drink));
+        row.setOnClickListener(v -> selectDrink(name, abv, volumeMl));
         llDropdown.addView(row);
     }
 
     private void addAddNewRow(String query) {
-        // Divider
         if (llDropdown.getChildCount() > 0) {
             View divider = new View(requireContext());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, 1);
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT, 1);
             divider.setLayoutParams(params);
             divider.setBackgroundColor(Color.parseColor("#22223a"));
             llDropdown.addView(divider);
@@ -174,26 +200,31 @@ public class AddDrinkFragment extends Fragment {
         TextView tvName   = row.findViewById(R.id.tvDropdownName);
         TextView tvDetail = row.findViewById(R.id.tvDropdownDetail);
 
-        tvName.setText("+ Add \"" + query + "\" as new drink");
+        tvName.setText("+ " + getString(R.string.new_drink) + " \"" + query + "\"");
         tvName.setTextColor(Color.parseColor("#5ab4ff"));
-        tvDetail.setText("Enter ABV below");
+        tvDetail.setText(getString(R.string.abv_percent));
 
         row.setOnClickListener(v -> selectAddNew(query));
         llDropdown.addView(row);
     }
 
-    private void selectDrink(CustomDrink drink) {
-        selectedName  = drink.name;
+    private void selectDrink(String name, double abv, int volumeMl) {
+        selectedName  = name;
         isCustomDrink = false;
 
-        etSearchDrink.setText(drink.name);
-        etVolume.setText(String.valueOf(drink.defaultVolumeMl));
-        etAbv.setText(String.valueOf(drink.abvPercent));
+        suppressWatcher = true;
+        etSearchDrink.setText(name);
+        suppressWatcher = false;
+
+        etVolume.setText(String.valueOf(volumeMl));
+        etAbv.setText(String.valueOf(abv));
+
+        tvAbvLabel.setVisibility(View.VISIBLE);
+        etAbv.setVisibility(View.VISIBLE);
 
         llDropdown.setVisibility(View.GONE);
         layoutCustomSection.setVisibility(View.GONE);
 
-        // Hide keyboard
         hideKeyboard();
     }
 
@@ -201,16 +232,20 @@ public class AddDrinkFragment extends Fragment {
         selectedName  = name.trim();
         isCustomDrink = true;
 
+        suppressWatcher = true;
         etSearchDrink.setText(name);
+        suppressWatcher = false;
+
         clearFields();
 
         llDropdown.setVisibility(View.GONE);
         layoutCustomSection.setVisibility(View.VISIBLE);
 
+        tvAbvLabel.setVisibility(View.GONE);
+        etAbv.setVisibility(View.GONE);
+
         hideKeyboard();
     }
-
-    // ── Save toggle ───────────────────────────────────────────────────────────
 
     private void setupSaveToggle() {
         btnSaveYes.setOnClickListener(v -> setSaveToggle(true));
@@ -221,27 +256,21 @@ public class AddDrinkFragment extends Fragment {
         saveCustom = save;
 
         if (save) {
-            btnSaveYes.setBackground(
-                    requireContext().getDrawable(
-                            R.drawable.toggle_selected_background));
+            btnSaveYes.setBackground(requireContext().getDrawable(
+                    R.drawable.toggle_selected_background));
             btnSaveYes.setTextColor(Color.parseColor("#5ab4ff"));
-            btnSaveNo.setBackground(
-                    requireContext().getDrawable(
-                            R.drawable.toggle_unselected_background));
+            btnSaveNo.setBackground(requireContext().getDrawable(
+                    R.drawable.toggle_unselected_background));
             btnSaveNo.setTextColor(Color.parseColor("#444466"));
         } else {
-            btnSaveNo.setBackground(
-                    requireContext().getDrawable(
-                            R.drawable.toggle_selected_background));
+            btnSaveNo.setBackground(requireContext().getDrawable(
+                    R.drawable.toggle_selected_background));
             btnSaveNo.setTextColor(Color.parseColor("#5ab4ff"));
-            btnSaveYes.setBackground(
-                    requireContext().getDrawable(
-                            R.drawable.toggle_unselected_background));
+            btnSaveYes.setBackground(requireContext().getDrawable(
+                    R.drawable.toggle_unselected_background));
             btnSaveYes.setTextColor(Color.parseColor("#444466"));
         }
     }
-
-    // ── Count buttons ─────────────────────────────────────────────────────────
 
     private void setupCountButtons() {
         btnMinus.setOnClickListener(v -> {
@@ -259,77 +288,94 @@ public class AddDrinkFragment extends Fragment {
         });
     }
 
-    // ── Add button ────────────────────────────────────────────────────────────
-
     private void setupAddButton() {
         btnAddDrink.setOnClickListener(v -> {
             if (!validateFields()) return;
 
             String name;
             double abv;
+            int volumeMl;
+
+            String volStr = etVolume.getText().toString().trim();
+            if (volStr.isEmpty()) {
+                etVolume.setError(getString(R.string.enter_volume));
+                return;
+            }
+            volumeMl = Integer.parseInt(volStr);
 
             if (isCustomDrink) {
                 name = selectedName;
                 String abvStr = etCustomAbv.getText().toString().trim();
                 if (abvStr.isEmpty()) {
-                    etCustomAbv.setError("Please enter ABV");
+                    etCustomAbv.setError(getString(R.string.please_enter_abv));
                     return;
                 }
                 abv = Double.parseDouble(abvStr);
 
-                // Save to storage if user chose yes
                 if (saveCustom) {
-                    int vol = Integer.parseInt(
-                            etVolume.getText().toString().trim());
-                    CustomDrinkStorage.saveDrink(requireContext(),
-                            new CustomDrink(name, abv, vol));
+                    final String finalName = name;
+                    final double finalAbv  = abv;
+                    final int finalVol     = volumeMl;
+
+                    CustomDrinkEntity entity = new CustomDrinkEntity();
+                    entity.name            = finalName;
+                    entity.abvPercent      = finalAbv;
+                    entity.defaultVolumeMl = finalVol;
+
+                    DatabaseHelper.saveCustomDrink(
+                            requireContext(), entity, () -> {
+                                if (!isAdded()) return;
+                                Toast.makeText(requireContext(),
+                                        getString(R.string.added_to_session, finalName),
+                                        Toast.LENGTH_SHORT).show();
+                            });
                 }
+
             } else {
                 name = selectedName;
-                abv  = Double.parseDouble(
-                        etAbv.getText().toString().trim());
+                String abvStr = etAbv.getText().toString().trim();
+                if (abvStr.isEmpty()) {
+                    etAbv.setError(getString(R.string.please_enter_abv));
+                    return;
+                }
+                abv = Double.parseDouble(abvStr);
             }
 
-            int volumeMl = Integer.parseInt(
-                    etVolume.getText().toString().trim());
+            final String finalName  = name;
+            final double finalAbv   = abv;
+            final int finalVolumeMl = volumeMl;
 
-            // Add drink to ViewModel — count means multiple entries
             for (int i = 0; i < drinkCount; i++) {
                 viewModel.addDrink(
-                        new DrinkEntry(name, abv, volumeMl, false),
+                        new DrinkEntry(finalName, finalAbv, finalVolumeMl, false),
                         userPrefs.getWeight(),
                         userPrefs.getSex()
                 );
             }
 
             Toast.makeText(requireContext(),
-                    drinkCount + "× " + name + " added!",
+                    getString(R.string.added_to_session, drinkCount + "× " + name),
                     Toast.LENGTH_SHORT).show();
 
             resetForm();
         });
     }
 
-    // ── Validation ────────────────────────────────────────────────────────────
-
     private boolean validateFields() {
         if (selectedName.isEmpty()) {
-            etSearchDrink.setError("Please select or add a drink");
+            etSearchDrink.setError(getString(R.string.select_drink_first));
             return false;
         }
         if (etVolume.getText().toString().trim().isEmpty()) {
-            etVolume.setError("Please enter volume");
+            etVolume.setError(getString(R.string.enter_volume));
             return false;
         }
-        if (!isCustomDrink &&
-                etAbv.getText().toString().trim().isEmpty()) {
-            etAbv.setError("Please enter ABV");
+        if (!isCustomDrink && etAbv.getText().toString().trim().isEmpty()) {
+            etAbv.setError(getString(R.string.please_enter_abv));
             return false;
         }
         return true;
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private void clearFields() {
         etVolume.setText("");
@@ -337,9 +383,14 @@ public class AddDrinkFragment extends Fragment {
     }
 
     private void resetForm() {
+        suppressWatcher = true;
         etSearchDrink.setText("");
+        suppressWatcher = false;
+
         etVolume.setText("");
         etAbv.setText("");
+        etAbv.setVisibility(View.VISIBLE);
+        tvAbvLabel.setVisibility(View.VISIBLE);
         etCustomAbv.setText("");
         llDropdown.setVisibility(View.GONE);
         layoutCustomSection.setVisibility(View.GONE);
@@ -356,8 +407,7 @@ public class AddDrinkFragment extends Fragment {
                         requireContext().getSystemService(
                                 android.content.Context.INPUT_METHOD_SERVICE);
         if (imm != null && getView() != null) {
-            imm.hideSoftInputFromWindow(
-                    getView().getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         }
     }
 }
